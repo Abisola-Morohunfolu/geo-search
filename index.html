@@ -1,80 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
-    <title>Geo-Search | Daily Weather Forecast</title>
-</head>
-<body>
-    <header class="header">
-        <div class="header__title-box">
-            <h1 class="header__title">GeoSearch</h1>
-        </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" type="text/css" href="./css/style.css" />
+		<title>Geo-Search | Daily Weather Forecast</title>
+	</head>
+	<body>
+		<header class="header">
+			<div class="header__title-box">
+				<h1 class="header__title">GeoSearch</h1>
+			</div>
 
-        <div class="header__text-box">
-            <h2 class="header-primary">Get your daily weather forecast here</h2>
-        </div>
+			<div class="header__text-box">
+				<h2 class="header-primary">Get your daily weather forecast here</h2>
+			</div>
 
-        <div class="search__box">
-            <input type="text" class="search__box-input" placeholder="Search for a location" id="search">  
-            <label for="search" class="search__box-label">Search for a location</label>
-            <button type="submit" class="btn-search btn">Search</button>
-        </div>
-    </header>
-    <main>
-        <section class="results" >
+			<div class="search__box">
+				<input
+					type="text"
+					class="search__box-input"
+					placeholder="Search for a location"
+					id="search"
+				/>
+				<label for="search" class="search__box-label"
+					>Search for a location</label
+				>
+				<button type="submit" class="btn-search btn">Search</button>
+			</div>
+		</header>
+		<main>
+			<section class="results">
+				<div class="map__wrapper">
+					<div class="map__container">
+						<img
+							src="https://maps.googleapis.com/maps/api/staticmap?center=Lagos,NG&zoom=10&size=1400x600&scale=2&key=AIzaSyBIJHwQ1v2z24-ETB-Huosk9aVJ_BZrnQY"
+							alt="City Map"
+							class="map"
+						/>
+					</div>
+				</div>
 
-            <div class="map__container">
-                <img src="https://maps.googleapis.com/maps/api/staticmap?center=Lagos,NG&zoom=14&size=600x600&key=AIzaSyBIJHwQ1v2z24-ETB-Huosk9aVJ_BZrnQY" alt="City Map" class="map">
-            </div>
-
-            <div class="weather__results">
-                <div class="weather__results-details current__city">
-                    <h2 class="heading__secondary">
-                        Weather Report for 
-                        <span class="current__city-name">Kaduna</span>
-                        <span class="current__city-date">Nov 18, 2019</span>
-                    </h2>
-                </div>
-                <div class="weather__results-details current__weather">
-                    <h3 class="heading__tertiary">
-                        Current Weather Condition:
-                        <span class="current__weather-condition">Clear Sky</span>
-                    </h3>
-                </div>
-                <div class="weather__results-details current__temp">
-                    <h4 class="heading__tertiary">
-                        Current Temperature: 
-                        <span class="current__temp-value">35 &#8451;</span>
-                    </h4>
-                    <button class="btn-inline btn-convert">Convert Celcius to Fahrenheit</button>
-                </div>
-                <div class="weather__results-details current__wind">
-                    <h3 class="heading__tertiary">
-                        Wind Speed: 
-                        <span class="current__wind-speed">2.41 m/s</span>
-                    </h3>
-                </div>
-                <div class="weather__results-details current__humidity">
-                    <h3 class="heading__tertiary">
-                        Humidity: 
-                        <span class="current__humidity-value">Clouds 9 %, 1008 hpa</span>
-                    </h3>
-                </div>
-                <div class="weather__results-details current__humidity">
-                    <button class="btn-share btn-inline">
-                        Share on Facebook
-                    </button>
-                </div>
-            </div><!--end of weather results div-->
-        </section>
-    </main>
-    <footer class="footer">
-        <p class="footer__text">Copyright 2019. GeoSearch</p>
-    </footer>
-    <script src="./js/index.js"></script>
-</body>
+				<div class="weather__results">
+					<div class="weather__results-details current__city">
+						<h2 class="heading__secondary">
+							Weather Report for
+							<span class="current__city-name">Kaduna</span>
+							<span class="current__city-date">Nov 18, 2019</span>
+						</h2>
+					</div>
+					<div class="weather__results-details current__weather">
+						<h3 class="heading__tertiary">
+							Current Weather Condition:
+							<span class="current__weather-condition">Clear Sky</span>
+						</h3>
+					</div>
+					<div class="weather__results-details current__temp">
+						<h4 class="heading__tertiary">
+							Current Temperature:
+							<span class="current__temp-value">35 &#8451;</span>
+						</h4>
+						<button class="btn-inline btn-convert">
+							Convert Celcius to Fahrenheit
+						</button>
+					</div>
+					<div class="weather__results-details current__wind">
+						<h3 class="heading__tertiary">
+							Wind Speed:
+							<span class="current__wind-speed">2.41 m/s</span>
+						</h3>
+					</div>
+					<div class="weather__results-details current__humidity">
+						<h3 class="heading__tertiary">
+							Humidity:
+							<span class="current__humidity-value">Clouds 9 %, 1008 hpa</span>
+						</h3>
+					</div>
+					<div class="weather__results-details current__humidity">
+						<button class="btn-share btn-inline">
+							Share on Facebook
+						</button>
+					</div>
+				</div>
+				<!--end of weather results div-->
+			</section>
+		</main>
+		<footer class="footer">
+			<p class="footer__text">Copyright 2019. GeoSearch</p>
+		</footer>
+		<script src="./js/index.js"></script>
+	</body>
 </html>
