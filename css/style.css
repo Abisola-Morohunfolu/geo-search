@@ -16,6 +16,7 @@
 
 html {
     font-size: 50%;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -106,6 +107,12 @@ body {
     background-color: var(--color-primary-dark-2);
 }
 
+.btn a {
+    text-decoration: none;
+    font-family: inherit;
+    color: currentColor;
+}
+
 /* RESULT SECTION */
 
 .results {
@@ -193,6 +200,24 @@ body {
     font-size: 1.2rem;
 }
 
+/* LOADER */
+.loader-container {
+    text-align: center;
+    padding: 2rem;
+    margin: 0 auto;
+}
+
+.loader {
+    width: 7.5rem;
+    height: 7.5rem;
+    margin: 0 auto;
+    border-top: 4px solid #fff;
+    border-right: 4px solid transparent;
+    border-radius: 50%;
+    -webkit-animation: 1s spin linear infinite;
+    animation: 1s spin linear infinite;
+  }
+
 /* ANIMATIONS */
 @keyframes fadeIn {
     0% {
@@ -217,6 +242,15 @@ body {
         transform: translateY(0);
     }
 }
+
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
 /* MEDIA QUERIES */
 @media only screen and (min-width: 37.5em) {
