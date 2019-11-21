@@ -6,6 +6,32 @@ const DOMStrings = {
 	mapContainer: document.querySelector('.map__container')
 };
 
+/**
+ * STATE
+ */
+
+const state = {};
+
+/**
+ * CONVERT TEMP FUNCTIONS
+ */
+
+const convertTempToCelcius = currentTemp => {
+	const value = parseInt(currentTemp, 10);
+	const celciusTemp = (value - 32) * (5 / 9);
+	return celciusTemp.toFixed(0);
+};
+
+const convertTempToFahrenheit = currentTemp => {
+	const value = parseInt(currentTemp, 10);
+	const fahrenheitTemp = value * 1.8 + 32;
+	return fahrenheitTemp.toFixed(0);
+};
+
+/**
+ * API KEYS
+ */
+
 const key = '1e51f09a2a5cef978fce70506749e63c';
 const googleAPI = 'AIzaSyBIJHwQ1v2z24-ETB-Huosk9aVJ_BZrnQY';
 
@@ -29,7 +55,7 @@ const clearLoader = () => {
 };
 
 const clearInput = () => {
-	DOMStrings.searchInput.textContent = ' ';
+	DOMStrings.searchInput.value = '';
 };
 /**
  * CLEAR CONTENT
@@ -116,19 +142,22 @@ const renderWeatherResult = result => {
         <div class="weather__results-details current__weather">
             <h3 class="heading__tertiary">
                 Current Weather Condition:
-                <span class="current__weather-condition">${
-									result.weather[0].main
-								}</span>
+                <span class="current__weather-condition">${result.weather[0].main}</span>
             </h3>
         </div>
         <div class="weather__results-details current__temp">
             <h4 class="heading__tertiary">
                 Current Temperature: 
-                <span class="current__temp-value">${
+                <span class="current__temp-value">${convertTempToCelcius(
 									result.main.temp
-								} &#8451;</span>
+								)} &#8451;</span>
             </h4>
-            <button class="btn-inline btn-convert">Convert Celcius to Fahrenheit</button>
+			<button class="btn-inline btn-convert convert__fahrenheit">
+				Convert Celcius to Fahrenheit
+			</button>
+			<button class="btn-inline btn-convert convert__celcius fade">
+				Convert Fahrenheit to Celcius
+			</button>
         </div>
         <div class="weather__results-details current__wind">
             <h3 class="heading__tertiary">
@@ -139,9 +168,7 @@ const renderWeatherResult = result => {
         <div class="weather__results-details current__humidity">
             <h3 class="heading__tertiary">
                 Humidity: 
-                <span class="current__humidity-value">${
-									result.main.humidity
-								}</span>
+                <span class="current__humidity-value">${result.main.humidity}</span>
             </h3>
         </div>
         <div class="weather__results-details current__humidity">
@@ -169,33 +196,28 @@ const renderMap = geoLocation => {
 };
 
 /**
- * EVENT LISTENERS
+ * GET WEATHER RESULT
  */
-
-DOMStrings.searchBtn.addEventListener('click', e => {
-	e.preventDefault();
-	clearInput();
-	getMap();
-	getWeather();
-});
 
 const getWeather = async () => {
 	const location = DOMStrings.searchInput.value;
 
 	if (location !== '') {
-		DOMStrings.weatherResultContainer.scrollIntoView({
+		document.querySelector('.footer').scrollIntoView({
 			behavior: 'smooth'
 		});
 
 		//render loader
+		clearInput();
 		clearResults(DOMStrings.weatherResultContainer);
 		loader(DOMStrings.weatherResultContainer);
 		await geocodeString(location);
 
 		try {
-			const weather = new weatherQuery(location);
-			const result = await weather.getCurrentWeather();
-			console.log(result);
+			state.weather = new weatherQuery(location);
+			const result = await state.weather.getCurrentWeather();
+			state.temp = convertTempToCelcius(result.main.temp);
+			//console.log(result);
 			clearLoader();
 			renderWeatherResult(result);
 		} catch (error) {
@@ -203,6 +225,10 @@ const getWeather = async () => {
 		}
 	}
 };
+
+/**
+ * GET MAP OF LOCATION
+ */
 
 const getMap = async () => {
 	const location = DOMStrings.searchInput.value;
@@ -220,3 +246,50 @@ const getMap = async () => {
 		}
 	}
 };
+
+/**
+ * EVENT LISTENERS
+ */
+
+//seach eventlisteners
+DOMStrings.searchBtn.addEventListener('click', e => {
+	e.preventDefault();
+	getMap();
+	getWeather();
+});
+
+//event listener for enter key
+document.addEventListener('keypress', e => {
+	if (e.key === 'Enter') {
+		getMap();
+		getWeather();
+	}
+});
+
+//convert temperature event
+DOMStrings.resultContainer.addEventListener('click', e => {
+	if (e.target.matches('.convert__fahrenheit')) {
+		//switch buttons in the UI
+		document.querySelector('.convert__fahrenheit').classList.add('fade');
+		document.querySelector('.convert__celcius').classList.remove('fade');
+		document.querySelector('.convert__celcius').classList.add('appear');
+
+		if (state.temp) {
+			//get current value from state and covert it
+			const newTemp = convertTempToFahrenheit(state.temp);
+			state.temp = newTemp;
+			document.querySelector('.current__temp-value').innerHTML = `${newTemp} &#8451;'`;
+		}
+	} else if (e.target.matches('.convert__celcius')) {
+		document.querySelector('.convert__celcius').classList.add('fade');
+		document.querySelector('.convert__fahrenheit').classList.remove('fade');
+		document.querySelector('.convert__fahrenheit').classList.add('appear');
+
+		if (state.temp) {
+			//get current value from state and covert it
+			const newTemp = convertTempToCelcius(state.temp);
+			state.temp = newTemp;
+			document.querySelector('.current__temp-value').innerHTML = `${newTemp} &#8457;'`;
+		}
+	}
+});
