@@ -1,10 +1,15 @@
 const DOMStrings = {
+	preloader: document.querySelector('.preloader--wrapper'),
 	searchInput: document.querySelector('.search__box-input'),
 	searchBtn: document.querySelector('.btn-search'),
 	resultContainer: document.querySelector('.results'),
 	weatherResultContainer: document.querySelector('.weather__results'),
 	mapContainer: document.querySelector('.map__container')
 };
+
+window.addEventListener('load', () => {
+	DOMStrings.preloader.classList.add('fade');
+});
 
 /**
  * STATE
@@ -268,28 +273,26 @@ document.addEventListener('keypress', e => {
 
 //convert temperature event
 DOMStrings.resultContainer.addEventListener('click', e => {
-	if (e.target.matches('.convert__fahrenheit')) {
-		//switch buttons in the UI
-		document.querySelector('.convert__fahrenheit').classList.add('fade');
-		document.querySelector('.convert__celcius').classList.remove('fade');
-		document.querySelector('.convert__celcius').classList.add('appear');
+	if (state.temp) {
+		if (e.target.matches('.convert__fahrenheit')) {
+			//switch buttons in the UI
+			document.querySelector('.convert__fahrenheit').classList.add('fade');
+			document.querySelector('.convert__celcius').classList.remove('fade');
+			document.querySelector('.convert__celcius').classList.add('appear');
 
-		if (state.temp) {
 			//get current value from state and covert it
 			const newTemp = convertTempToFahrenheit(state.temp);
 			state.temp = newTemp;
-			document.querySelector('.current__temp-value').innerHTML = `${newTemp} &#8451;'`;
-		}
-	} else if (e.target.matches('.convert__celcius')) {
-		document.querySelector('.convert__celcius').classList.add('fade');
-		document.querySelector('.convert__fahrenheit').classList.remove('fade');
-		document.querySelector('.convert__fahrenheit').classList.add('appear');
+			document.querySelector('.current__temp-value').innerHTML = `${newTemp} &#8457;`;
+		} else if (e.target.matches('.convert__celcius')) {
+			document.querySelector('.convert__celcius').classList.add('fade');
+			document.querySelector('.convert__fahrenheit').classList.remove('fade');
+			document.querySelector('.convert__fahrenheit').classList.add('appear');
 
-		if (state.temp) {
 			//get current value from state and covert it
 			const newTemp = convertTempToCelcius(state.temp);
 			state.temp = newTemp;
-			document.querySelector('.current__temp-value').innerHTML = `${newTemp} &#8457;'`;
+			document.querySelector('.current__temp-value').innerHTML = `${newTemp} &#8451;`;
 		}
 	}
 });

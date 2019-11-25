@@ -24,12 +24,50 @@ body {
 	box-sizing: border-box;
 }
 
+.preloader--wrapper {
+	background-color: var(--color-primary-dark-1);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	transition: all 0.8s;
+}
+
+.preloader {
+	width: 70px;
+	height: 70px;
+	background: #ffff32;
+	border-radius: 50%;
+	position: absolute;
+	top: calc(50% - 35px);
+	left: calc(50% - 35px);
+}
+
+.preloader:after,
+.preloader:before {
+	content: '';
+	position: absolute;
+	top: 40px;
+	left: 20px;
+	background: #fafafa;
+	display: block;
+	width: 50px;
+	height: 40px;
+	border-radius: 50%;
+	animation: cloud1 2.5s ease-in-out infinite alternate;
+	box-shadow: 20px -15px 0 #fafafa, 40px 10px 0 #fafafa, 55px -15px 0 #fafafa, 75px 0px 0 #fafafa;
+}
+
+.preloader:before {
+	left: -80px;
+	top: 0;
+	animation-name: cloud2;
+}
+
 .header {
-	background-image: linear-gradient(
-			to bottom,
-			rgba(17, 30, 108, 0.98),
-			rgba(255, 255, 255, 0.1)
-		),
+	background-image: linear-gradient(to bottom, rgba(17, 30, 108, 0.98), rgba(255, 255, 255, 0.1)),
 		url(../images/sea.png);
 	background-size: cover;
 	height: 90vh;
@@ -251,6 +289,23 @@ body {
 }
 
 /* ANIMATIONS */
+@keyframes cloud1 {
+	from {
+		margin-left: 0;
+	}
+	to {
+		margin-left: 50px;
+	}
+}
+@keyframes cloud2 {
+	from {
+		margin-left: 0;
+	}
+	to {
+		margin-left: -50px;
+	}
+}
+
 @keyframes fadeIn {
 	0% {
 		opacity: 0;
